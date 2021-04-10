@@ -115,14 +115,14 @@ class RuntimeDataViewSet(viewsets.ModelViewSet):
         data = request.data
         name = data['argv'][:255]
         vm = data['VM'][:32]
-        user = request.user if request.user.is_authenticated() else None
+        user = request.user if request.user.is_authenticated else None
         runtime = self.queryset.create(user=user, vm=vm, name=name, completed=True)
         data = json.dumps(data).encode('utf-8')
         CPUProfile.objects.create(data=data, runtime_data=runtime, file=None)
         return Response(str(runtime.runtime_id))
 
     def get_queryset(self):
-        if not self.request.user.is_authenticated():
+        if not self.request.user.is_authenticated:
             return self.queryset
 
         if not bool(self.request.GET.get('all', False)) and 'pk' not in self.kwargs:
@@ -137,9 +137,9 @@ class UserPermission(permissions.BasePermission):
         if request.method == "PUT":
             return True
         if request.method == "DELETE":
-            return request.user.is_authenticated()
+            return request.user.is_authenticated
         if request.method == "GET":
-            return request.user.is_authenticated()
+            return request.user.is_authenticated
         return False
 
 
@@ -215,7 +215,7 @@ def runtime_new(request):
     data = request.data
     name = data['argv'][:255]
     vm = data['VM'][:32]
-    user = request.user if request.user.is_authenticated() else None
+    user = request.user if request.user.is_authenticated else None
     rdat = RuntimeData.objects.create(user=user, vm=vm, name=name)
     rdat.save()
     return Response({'status':'ok','runtime_id': str(rdat.runtime_id)})
