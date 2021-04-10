@@ -16,7 +16,7 @@ from webapp.views import index
 router = routers.DefaultRouter()
 router.register(r'log', RuntimeDataViewSet)
 router.register(r'profile', RuntimeDataViewSet)
-router.register(r'token', TokenViewSet, base_name="token")
+router.register(r'token', TokenViewSet, basename="token")
 
 urlpatterns = [
     url(r'^$', index),
