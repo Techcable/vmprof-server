@@ -19,7 +19,7 @@ class BinaryJitLog(models.Model):
     file = models.FileField(upload_to=get_profile_storage_directory)
     # relations
     profile = models.ForeignKey(RuntimeData, related_name='jitlog',
-                                null=True, blank=False)
+                                null=True, blank=False, on_delete=models.CASCADE)
 
     def decode_forest(self):
         # ultra slow, especially when run on cpython 3.5
