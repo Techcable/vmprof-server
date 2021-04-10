@@ -20,7 +20,7 @@ router.register(r'token', TokenViewSet, basename="token")
 
 urlpatterns = [
     url(r'^$', index),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     #
     url(r'^api/', include(router.urls)),
     #
